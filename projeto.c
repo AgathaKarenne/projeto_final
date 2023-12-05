@@ -16,7 +16,7 @@ typedef struct Veiculo
     Combustivel combustivel;
     char modelo[50];
     char cor[20];
-    float nChassi;
+    float nChassi; 
     int ano;
     char placa[7]; // os três primeiros caracteres devem conter valores alfabéticos e os quatro últimos devem ter valores numéricos
     struct Veiculo *prox;
@@ -65,7 +65,7 @@ int validarPlaca(char placa[])
     if (strlen(placa) != 7)
     {
         printf("A placa nao possui 7 caracteres.\n");
-        return 1;
+        return 0;
     }
 
     for (int i = 0; i < 2; ++i)
@@ -73,7 +73,7 @@ int validarPlaca(char placa[])
         if (!((placa[i] >= 'A' && placa[i] <= 'Z') || (placa[i] >= 'a' && placa[i] <= 'z')))
         {
             printf("Os tres primeiros caracteres nao sao alfabeticos.\n");
-            return 1;
+            return 0;
         }
     }
 
@@ -82,11 +82,12 @@ int validarPlaca(char placa[])
         if (!(placa[i] >= '0' && placa[i] <= '9'))
         {
             printf("Os quatro ultimos caracteres nao sao numericos.\n");
-            return 1;
+            return 0;
         }
     }
+
     printf("Placa valida!\n");
-    return 0;
+    return 1;
 }
 
 void cadastrarVeiculo(Veiculo **lista)
@@ -112,9 +113,14 @@ void cadastrarVeiculo(Veiculo **lista)
     scanf("%f", &nChassi);
     printf("Ano: ");
     scanf("%d", &ano);
-    printf("Placa: (somente 7 caracteres)");
-    scanf("%s", placa);
+    int placaValida;
+    do
+    {
+        printf("Placa: (somente 7 caracteres)");
+        scanf("%s", placa);
+        placaValida = validarPlaca(placa);
 
+    } while (!placaValida);
     validarPlaca(placa);
 
     Veiculo *novoVeiculo = criarVeiculo(proprietario, combustivel, modelo, cor, nChassi, ano, placa);
@@ -180,7 +186,6 @@ void funcaoA(Veiculo *lista)
 // b. Uma função que liste todas as placas que comecem com a letra J e terminem com 0, 2, 4 ou 7 e seus respectivos proprietários. (1,0 ponto)
 void funcaoB(Veiculo *lista)
 {
-
     Veiculo *atual = lista;
     printf("As placas que comecam com j e terminam com 0, 2, 4 ou 7\n");
 
@@ -226,6 +231,8 @@ void funcaoC(Veiculo *lista)
 void funcaoD(Veiculo *lista, float nChassi)
 {
     Veiculo *atual = lista;
+    int encontrado = 0;  
+
     printf("Troca de proprietário com o fornecimento do número do chassi apenas para carros com placas que não possuam nenhum dígito igual a zero\n");
 
     while (atual != NULL)
@@ -235,29 +242,36 @@ void funcaoD(Veiculo *lista, float nChassi)
         {
             if (atual->placa[i] == '0')
             {
-
-                temZero = 1; // true
+                temZero = 1; // verdadeiro
                 break;
             }
         }
+
         if (temZero == 0 && atual->nChassi == nChassi)
         {
-            // troca de proprietario
+           // troca de proprietario
             printf("Número do Chassi: %.2f\n", atual->nChassi);
             printf("Placa: %s\n", atual->placa);
             printf("Digite o novo proprietário: ");
             scanf("%s", atual->proprietario);
             printf("Troca de proprietário realizada com sucesso!\n");
-            return;
+
+            encontrado = 1;  // Set the flag to indicate the vehicle is found
+            break;
         }
-        else
-        {
-            printf("Veículo com o número do chassi fornecido não encontrado ou placa possui dígito igual a zero.\n");
-        }
+
         atual = atual->prox;
     }
+
+    // Print error message if the vehicle is not found
+    if (!encontrado)
+    {
+        printf("Veículo com o número do chassi fornecido não encontrado ou placa possui dígito igual a zero.\n");
+    }
 }
-main()
+
+
+main(void)
 {
     Veiculo *listaVeiculos = NULL;
     int opcao;
@@ -309,4 +323,6 @@ main()
         listaVeiculos = listaVeiculos->prox;
         free(temp);
     }
+
+    return 0;
 }
