@@ -1,36 +1,68 @@
-Instruções
-Para o controle dos veículos que circulam em uma determinada cidade, a Secretaria dos Transportes criou o seguinte registro padrão:
+```markdown
+# Sistema de Avaliação de Alunos
 
- Proprietário:__________________________ Combustível:____________________
+## Descrição
 
- Modelo: _____________________________ Cor: __________________________
+O Sistema de Avaliação de Alunos é uma aplicação simples em C desenvolvida para calcular a média e determinar a situação dos alunos com base em suas notas. Esta ferramenta é útil para professores ou instituições educacionais que desejam automatizar o processo de avaliação de alunos.
 
-Nº chassi: _________________________ Ano: __________ Placa: ____________
+O sistema lê os dados dos alunos de um arquivo CSV de entrada, calcula a média das notas e determina se o aluno está aprovado ou reprovado. Os resultados são então escritos em um novo arquivo CSV de saída.
 
-Em que:
+## Funcionalidades
 
-• Combustível pode ser álcool, diesel ou gasolina;
+- Leitura dos dados dos alunos a partir de um arquivo CSV.
+- Cálculo da média das notas de cada aluno.
+- Determinação da situação do aluno (aprovado ou reprovado) com base na média.
+- Escrita dos resultados no formato CSV em um novo arquivo.
 
-• Placa possui os três primeiros valores alfabéticos e os quatro restantes valores numéricos ou seja 7 caracteres na placa.
+## Instalação
 
-Sabendo que não temos uma definição do número máximo de veículos da cidade e que é preciso armazenar todos os valores em uma lista encadeada simples, construa:
+1. Certifique-se de ter o compilador GCC instalado em seu sistema.
+2. Clone o repositório:
 
-a. Uma função que liste todos os proprietários cujos carros são do ano de 2010 ou posterior e que sejam movidos a diesel. (1,0 ponto)
+```bash
+git clone https://github.com/seu_usuario/sistema-avaliacao-alunos.git
+```
 
-b. Uma função que liste todas as placas que comecem com a letra J e terminem com 0, 2, 4 ou 7 e seus respectivos proprietários. (1,0 ponto)
+3. Navegue até o diretório do projeto:
 
-c. Uma função que liste o modelo e a cor dos veículos cujas placas possuem como segunda letra uma vogal e cuja soma dos valores numéricos fornece um número par. (1,0 ponto)
+```bash
+cd sistema-avaliacao-alunos
+```
 
-d. Uma função que permita a troca de proprietário com o fornecimento do número do chassi apenas para carros com placas que não possuam nenhum dígito igual a zero. (1,0 ponto)
+4. Compile o código-fonte:
 
-Explicação do codigo feito
+```bash
+gcc main.c -o sistema_avaliacao
+```
 
-O código consiste em um programa em C que gerencia uma lista ligada de automóveis, sendo que cada um é representado por uma estrutura chamada Veiculo. Cada veículo possui informações como proprietário, combustível, modelo, cor, número do chassi, ano e placa. Adicionalmente, existem quatro funções extras que realizam operações específicas na lista de automóveis.
-A estrutura Veiculo inclui campos para armazenar as informações de um automóvel e um ponteiro para o próximo automóvel na lista.
-2. Função validaCombustivel: recebe um caractere que representa o tipo de combustível e retorna o correspondente enum. Caso o caractere seja inválido, o programa é encerrado.
-3. Função criarVeiculo: tem como objetivo criar um novo automóvel, alocando dinamicamente a memória necessária e preenchendo os campos com os parâmetros fornecidos.
-4. Função validarPlaca: é responsável por garantir que a placa do automóvel atenda a certos critérios, como ter 7 caracteres, ter letras nos três primeiros caracteres e números nos quatro últimos.
-5. Função cadastrarVeiculo: solicita ao usuário as informações, valida a placa e cria um novo veículo. Em seguida, adiciona esse veículo à lista encadeada.
-6. Função imprimirLista: percorre-se uma lista encadeada e imprimem-se as informações de cada veículo.As funções de A a D são operações específicas na lista de veículos. Isso inclui listar os donos de carros movidos a diesel, listar as placas que atendem a critérios específicos, listar os modelos e núcleos dos veículos com características determinadas nas placas, e permitir a troca de proprietário com base no número do chassi.
-7. Funções A, B, C e D:Essas funções executam operações específicas na lista de veículos com base nos critérios estabelecidos para cada uma.
-8. Loop principal (menu):O programa principal possui um loop que apresenta um menu ao usuário, permitindo-lhe escolher entre diferentes opções, como cadastrar um veículo, imprimir uma lista ou executar uma das funções A, B, C ou D. O loop continua até que o usuário escolha a opção "0" para sair. No final do programa, a memória alocada dinamicamente para os veículos é liberada.
+5. Certifique-se de que os arquivos `DadosEntrada.csv` e `SituacaoFinal.csv` estão presentes na pasta do projeto.
+
+## Uso
+
+Execute o programa compilado `sistema_avaliacao`. O programa lerá os dados dos alunos do arquivo `DadosEntrada.csv`, calculará as médias e determinará as situações dos alunos, e então escreverá os resultados no arquivo `SituacaoFinal.csv`.
+
+```bash
+./sistema_avaliacao
+```
+
+## Exemplo de Entrada
+
+O arquivo de entrada `DadosEntrada.csv` deve seguir o seguinte formato:
+
+```
+Nome,Telefone,Curso,Nota1,Nota2
+Maria,(99) 99999-9999,Engenharia,7.5,8.0
+João,(99) 88888-8888,Medicina,6.0,5.5
+```
+
+## Contribuindo
+
+Contribuições são bem-vindas! Se você tiver ideias para melhorar este projeto, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+## Licença
+
+Este projeto é licenciado sob a [Licença MIT](LICENSE).
+
+```
+
+Esse README mais detalhado fornece uma visão geral do projeto, incluindo funcionalidades, exemplos de entrada, instruções de instalação e uso, além de incentivar a contribuição e indicar a licença. Certifique-se de substituir "seu_usuario" pelo seu nome de usuário real.
